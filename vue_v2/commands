@@ -1,0 +1,5 @@
+npm create vue@latest
+
+npm install axios
+
+npm install bootstrap@4.6.0 jquery popper.js
