@@ -1,0 +1,2 @@
+php artisan make:factory BlogFactory --model=Blog
+php artisan make:seeder BlogSeeder
