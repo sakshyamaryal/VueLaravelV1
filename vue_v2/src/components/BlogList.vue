@@ -31,7 +31,7 @@
           <label><strong>Description:</strong></label> {{ currentBlog.body }}
         </div>
         <div>
-          <label><strong>Status:</strong></label> {{ currentBlog.published ? "Published" : "Pending" }}
+          <label><strong>Status:</strong></label> {{ currentBlog.published }}
         </div>
         <router-link :to="'/blogs/' + currentBlog.id" class="badge badge-warning">Edit</router-link>
       </div>
@@ -42,7 +42,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import BlogDataService from "../services/BlogDataService";
 

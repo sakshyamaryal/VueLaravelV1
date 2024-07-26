@@ -12,15 +12,22 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $blogs =  Blog::latest()->paginate(10);
+        // Get the title from the query parameter
+        $title = $request->query('title');
 
-        return [
+        // If the title is present, filter blogs by title
+        if ($title) {
+            $blogs = Blog::where('title', 'like', '%' . $title . '%')->latest()->paginate(10);
+        } else {
+            $blogs = Blog::latest()->paginate(10);
+        }
+
+        return response()->json([
             'status' => 1,
-            'data'=> $blogs
-        ];
+            'data' => $blogs
+        ]);
     }
 
     /**
@@ -41,17 +48,17 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'title' => 'required',
             'body' => 'required',
         ]);
 
-        $blog =  Blog::create($request->all());
-        return [
+        $blog = Blog::create($request->all());
+
+        return response()->json([
             'status' => 1,
-            'data'=> $blog
-        ];
+            'data' => $blog
+        ]);
     }
 
     /**
@@ -62,11 +69,10 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        //
-        return [
-            'status'=>1,
+        return response()->json([
+            'status' => 1,
             'data' => $blog
-        ];
+        ]);
     }
 
     /**
@@ -89,7 +95,6 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
         $request->validate([
             'title' => 'required',
             'body' => 'required',
@@ -97,11 +102,11 @@ class BlogController extends Controller
 
         $blog->update($request->all());
 
-        return [
+        return response()->json([
             'status' => 1,
             'data' => $blog,
             'msg' => 'Blog Updated successfully'
-        ];
+        ]);
     }
 
     /**
@@ -112,12 +117,12 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
         $blog->delete();
-        return [
+
+        return response()->json([
             'status' => 1,
             'data' => $blog,
             'msg' => 'Blog Deleted successfully'
-        ];
+        ]);
     }
 }
