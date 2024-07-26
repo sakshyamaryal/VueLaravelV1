@@ -10,6 +10,14 @@
           <router-link to="/add" class="nav-link">Add</router-link>
         </li>
       </div>
+      <div class="navbar-nav">
+        <li class="nav-item pull-right">
+          <router-link to="/login" class="nav-link">Login</router-link>
+        </li>
+        <li class="nav-item pull-right">
+          <router-link to="/signup" class="nav-link">Sign Up</router-link>
+        </li>
+      </div>
     </nav>
 
     <div class="container mt-3">

@@ -14,9 +14,11 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
+        // print_r($request);exit;
         // Get the title from the query parameter
         $title = $request->query('title');
-
+        
+        // print_r($title);exit;
         // If the title is present, filter blogs by title
         if ($title) {
             $blogs = Blog::where('title', 'like', '%' . $title . '%')->latest()->paginate(10);
@@ -26,6 +28,7 @@ class BlogController extends Controller
 
         return response()->json([
             'status' => 1,
+            'test' => 'index',
             'data' => $blogs
         ]);
     }
@@ -71,6 +74,7 @@ class BlogController extends Controller
     {
         return response()->json([
             'status' => 1,
+            'test' => 'Show',
             'data' => $blog
         ]);
     }

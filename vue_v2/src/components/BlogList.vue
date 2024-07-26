@@ -94,7 +94,9 @@ export default {
       BlogDataService.findByTitle(this.title)
         .then(response => {
           if (response.data && response.data.data) {
-            this.blogs = response.data.data; // Ensure this is an array
+            this.blogs = [];
+            this.blogs = response.data.data.data; 
+            // this.blogs = response.data.data; // Ensure this is an array
             this.setActiveBlog(null, -1);
           } else {
             console.error("Unexpected response structure:", response);
