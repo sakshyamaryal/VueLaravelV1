@@ -1,11 +1,15 @@
 import { createWebHistory, createRouter } from "vue-router";
+import { isAuthenticated } from './components/auth/authenticate';
 
 const routes = [
   {
     path: "/",
     alias: "/blogs",
     name: "blogs",
-    component: () => import("./components/BlogList.vue")
+    component: () => import("./components/BlogList.vue"),
+    meta: {
+      requiresAuth: true // Add meta field to indicate protected route
+    }
   },
   {
     path: "/blogs/:id",
@@ -32,6 +36,21 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated()) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

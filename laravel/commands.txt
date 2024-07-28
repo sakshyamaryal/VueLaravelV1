@@ -4,3 +4,5 @@ php artisan make:seeder BlogSeeder
 php artisan make:controller UserController --resource
 php artisan make:model User -m
 php artisan make:request UserRequest
+
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"

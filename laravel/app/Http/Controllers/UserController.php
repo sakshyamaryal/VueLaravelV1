@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Http\Controllers\BaseController;
+use Illuminate\Support\Facades\Auth;
+use Validator;
+use Laravel\Sanctum\HasApiTokens;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
 
     public function __construct()
@@ -120,4 +124,19 @@ class UserController extends Controller
     {
         //
     }
+
+    public function login(Request $request)
+    {
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+            $user = Auth::user();
+            $success['token'] = $user->createToken('MyApp')->plainTextToken;
+            $success['name'] =  $user->name;
+   
+            return $this->sendResponse($success, 'User login successfully.');
+        } 
+        else{ 
+            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+        } 
+    }
+
 }
