@@ -19,7 +19,10 @@ const routes = [
   {
     path: "/add",
     name: "add",
-    component: () => import("./components/AddBlog.vue")
+    component: () => import("./components/AddBlog.vue"),
+    meta: {
+      requiresAuth: true // Add meta field to indicate protected route
+    }
   },
   {
     path: "/signup",
