@@ -139,4 +139,13 @@ class UserController extends BaseController
         } 
     }
 
+    public function logout()
+    {
+        Session::flush();
+
+        Auth::logout();
+
+        return true;
+    }
+
 }

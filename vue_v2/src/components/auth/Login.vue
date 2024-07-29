@@ -36,6 +36,7 @@
 
 <script>
   import LoginService from "../../services/LoginService";
+  import { login as performLogIn  } from '../../components/auth/authenticate';
 
   export default {
     name: "Login",
@@ -56,7 +57,8 @@
         LoginService.login(data).then(response => {
           if (response.data.data) {
             console.log(response.data.data.token);
-            localStorage.setItem('token', response.data.data.token);
+            performLogIn(response.data.data.token);
+            // localStorage.setItem('token', response.data.data.token);
             this.submitted = true;
           }
           // this.submitted = true;

@@ -19,6 +19,7 @@ Route::apiResource('users', UserController::class);
 
 // Corrected login route
 Route::post('login', [UserController::class, 'login'])->name('login');
+Route::post('logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('blogs', BlogController::class);
