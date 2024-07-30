@@ -23,9 +23,21 @@ class UserController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if ($request->query('id')) {
+            
+            $get_all_users = User::where('id', $request->query('id'))->get();
+        }else {
+            $get_all_users = User::all();
+
+        }
+
+        return response()->json([
+            'users' => $get_all_users
+        ]);
+
     }
 
     /**
@@ -99,7 +111,7 @@ class UserController extends BaseController
      */
     public function edit($id)
     {
-        //
+       
     }
 
     /**

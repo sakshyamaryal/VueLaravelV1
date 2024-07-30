@@ -14,6 +14,14 @@ class LoginService {
         return http.post('/logout');
     }
 
+    getUsers(){
+        return http.get("/users")
+    }
+
+    getUserById(id){
+        return http.get(`/users?id=${id}`)
+    }
+
 }
 
 export default new LoginService();

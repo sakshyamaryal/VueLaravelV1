@@ -10,7 +10,7 @@
           <router-link to="/add" class="nav-link">Add</router-link>
         </li>
         <li class="nav-item pull-right" v-if="authStatus">
-          <router-link to="/login" class="nav-link">Users</router-link>
+          <router-link to="/userlist" class="nav-link">Users</router-link>
         </li>
       </div>
       <div class="navbar-nav">
@@ -49,7 +49,7 @@ export default {
     watch(authStatus, (newStatus) => {
       authStatusRef.value = newStatus;
     });
-    
+
     return {
       authStatus: authStatusRef,
       logout_user
