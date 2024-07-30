@@ -22,6 +22,18 @@ class LoginService {
         return http.get(`/users?id=${id}`)
     }
 
+    updateUser(id,data){
+        return http.put(`/users/${id}`, data);
+    }
+
+    deleteUser(id){
+        return http.delete(`/users/${id}`);
+    }
+
+    addNewUser(data){
+        return http.post('/users', data);
+    }
+
 }
 
 export default new LoginService();

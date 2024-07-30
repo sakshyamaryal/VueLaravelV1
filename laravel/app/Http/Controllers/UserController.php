@@ -124,6 +124,14 @@ class UserController extends BaseController
     public function update(Request $request, $id)
     {
         //
+        // dd(123);
+        $update = User::where('id', $id)->update($request->all());
+
+        if ($update) {
+            return ($update);
+        }
+
+        return false;
     }
 
     /**
@@ -135,6 +143,13 @@ class UserController extends BaseController
     public function destroy($id)
     {
         //
+        $delete = User::where('id', $id)->delete();
+
+        if ($delete) {
+            return $delete;
+        }
+        return false;
+        
     }
 
     public function login(Request $request)

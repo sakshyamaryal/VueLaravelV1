@@ -1,4 +1,9 @@
 <template>
+
+<button  @click="addUser()" type="button" :class="['btn', 'btn-secondary', 'pull-right']">Add User</button>
+
+<div class="mt-12">
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -22,6 +27,7 @@
     
   </tbody>
 </table>
+</div>
 </template>
 
 <script>
@@ -42,9 +48,23 @@
                     this.users = response.data.users;
                 });
             },
+
             goToEdit(userId) {
                 this.$router.push('/user/' + userId);
             },
+
+            goToDelete(userId) {
+                LoginService.deleteUser(userId).then(response => {
+                  if (response.data) {
+                    alert("user Deleted");
+                    this.getUsers();
+                  }
+                });
+            },
+            
+            addUser(){
+              this.$router.push('/add-user');
+            }
         },
         mounted() {
             this.getUsers();

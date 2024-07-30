@@ -49,7 +49,8 @@ export default {
             const userId = this.$route.params.id;
 
             LoginService.getUserById(userId).then(response => {
-                this.user = response.data;
+                this.user.email = response.data.users[0].email;
+                this.user.name = response.data.users[0].name;
             }).catch(error => {
                 console.error(error);
             });
@@ -57,6 +58,9 @@ export default {
         changeUserDetails() {
             // Replace with actual user ID if needed
             const userId = this.$route.params.id;
+            
+            console.log(this.$route);
+
             LoginService.updateUser(userId, this.user).then(response => {
                 this.submitted = true;
             }).catch(error => {
