@@ -15,16 +15,18 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// Public routes
 Route::apiResource('users', UserController::class);
 
-// Corrected login route
+// Login and logout routes
 Route::post('login', [UserController::class, 'login'])->name('login');
 Route::post('logout', [UserController::class, 'logout'])->name('logout');
 
+// Publicly accessible blogs routes
+Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
+Route::get('blogs/{blog}', [BlogController::class, 'show'])->name('blogs.show');
+
+// Authenticated routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::resource('blogs', BlogController::class);
-    // Route::apiResource('users', UserController::class);
-    // Route::get('/user', function (Request $request) {
-    //     return $request->user();
-    // });
+    Route::apiResource('blogs', BlogController::class)->except(['index', 'show']);
 });

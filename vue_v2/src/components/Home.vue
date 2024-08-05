@@ -5,7 +5,7 @@
       <div class="container">
         <h2>Explore the Best Insights on [Your Blog’s Focus]</h2>
         <p>Your ultimate destination for expert advice, trending topics, and engaging content.</p>
-        <router-link to="/posts" class="btn">See Latest Posts</router-link>
+        <router-link to="/blogs" class="btn">See Latest Posts</router-link>
       </div>
     </section>
     
@@ -32,11 +32,14 @@
         <h2>Recent Updates</h2>
         <div class="posts">
           <!-- Example Latest Post -->
-          <article>
-            <h3><router-link to="/post/2">Understanding [Concept]</router-link></h3>
-            <p>Get the latest insights and updates on [Concept].</p>
-            <router-link to="/post/2" class="btn">Read More</router-link>
+          <article v-for="post in posts" :key="post.id">
+            <h3>
+              <router-link :to="`/post/${post.id}`">{{ post.title }}</router-link>
+            </h3>
+            <p>{{ post.body }}</p>
+            <router-link :to="`/post/${post.id}`" class="btn">Read More</router-link>
           </article>
+
           <!-- Add more latest posts here -->
         </div>
       </div>
@@ -58,8 +61,27 @@
 </template>
 
 <script>
+import BlogDataService from "../services/BlogDataService";
+
 export default {
-  name: "Home"
+  name: "Home",
+  data() {
+    return {
+      posts: []
+    }
+  },
+  methods: {
+    fetchRecent(){
+      BlogDataService.getAll().then(response => {
+        this.posts = response.data.data.data;
+        console.log(response.data.data.data);
+        
+      });
+    }
+  },
+  mounted() {
+    this.fetchRecent();
+  }
 };
 </script>
 

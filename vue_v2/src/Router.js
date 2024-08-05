@@ -7,9 +7,9 @@ const routes = [
     alias: "/blogs",
     name: "blogs",
     component: () => import("./components/BlogList.vue"),
-    meta: {
-      requiresAuth: true // Add meta field to indicate protected route
-    }
+    // meta: {
+    //   requiresAuth: true // Add meta field to indicate protected route
+    // }
   },
   {
     path: "/blogs/:id",
@@ -53,6 +53,11 @@ const routes = [
     path: "/home",
     name: "home",
     component: () => import("./components/Home.vue")
+  },
+  {
+    path: "/post/:id",
+    name: "PostDetails",
+    component: () => import("./components/Post.vue")
   },
 ];
 
